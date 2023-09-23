@@ -1,6 +1,9 @@
 package com.example.demo.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -15,9 +18,28 @@ public class Movie {
     private String description;
     private Float rating;
     private String image;
-    private Date created_at;
-    private Date updated_at;
     
+    @JsonIgnoreProperties(ignoreUnknown = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    private LocalDateTime created_at;
+    
+    @JsonIgnoreProperties(ignoreUnknown = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    private LocalDateTime updated_at;
+    public Movie() {
+    	super();
+    }
+    
+	public Movie(String title, String description, String image, float rating, LocalDateTime created_at, LocalDateTime updated_at) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.image = image;
+		this.rating = rating;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -48,16 +70,16 @@ public class Movie {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public Date getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
-	public void setCreated_at(Date created_at) {
+	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	public Date getUpdated_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
-	public void setUpdated_at(Date updated_at) {
+	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
 }
